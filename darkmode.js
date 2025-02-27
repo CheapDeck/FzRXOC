@@ -1,19 +1,23 @@
 let darkmode = localStorage.getItem('darkmode')
 const themeSwitch = document.getElementById('theme-switch')
 
-const enableDarkmode = () => {
-  document.body.classList.add('darkmode')
-  localStorage.setItem('darkmode', 'active')
+// Check if the cookie is set to "dark=false"
+if (!document.cookie.includes('dark=false')) 
+    enableDarkmode()
+
+function enableDarkmode() {
+    document.body.classList.add('darkmode')
+    localStorage.setItem('darkmode', 'active')
+    document.cookie = 'dark=true'
 }
 
-const disableDarkmode = () => {
-  document.body.classList.remove('darkmode')
-  localStorage.setItem('darkmode', null)
+function disableDarkmode() {
+    document.body.classList.remove('darkmode')
+    localStorage.setItem('darkmode', null)
+    document.cookie = 'dark=false'
 }
 
-if(darkmode === "active") enableDarkmode()
-
-themeSwitch.addEventListener("click", () => {
-  darkmode = localStorage.getItem('darkmode')
-  darkmode !== "active" ? enableDarkmode() : disableDarkmode()
-})
+function toggleDarkmode() {
+    darkmode = localStorage.getItem('darkmode')
+    darkmode !== "active" ? enableDarkmode() : disableDarkmode()
+}
